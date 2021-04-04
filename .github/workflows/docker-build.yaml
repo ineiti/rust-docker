@@ -1,0 +1,17 @@
+name: Docker Build
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build One
+      uses: whoan/docker-build-with-cache-action@v5
+      with:
+        username: ineiti
+        password: "${{ secrets.GITHUB_TOKEN }}"
+        registry: docker.pkg.github.com
+        image_name: ineiti/rust-docker/one
