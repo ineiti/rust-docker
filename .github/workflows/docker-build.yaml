@@ -11,7 +11,7 @@ jobs:
     - name: Build One
       uses: whoan/docker-build-with-cache-action@v5
       with:
-        username: ineiti
-        password: "${{ secrets.GITHUB_TOKEN }}"
-        registry: docker.pkg.github.com
-        image_name: ineiti/rust-docker/one
+        username: ${{ secrets.DOCKERHUB_NAME }}
+        password: ${{ secrets.DOCKERHUB }}
+        image_name: fledgre/one-test
+        dockerfile: Dockerfile
