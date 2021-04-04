@@ -1,16 +1,14 @@
-FROM rust as planner
+FROM lukemathwalker/cargo-chef as planner
 WORKDIR /rust-docker
 # We only pay the installation cost once, 
 # it will be cached from the second build onwards
 # To ensure a reproducible build consider pinning 
 # the cargo-chef version with `--version X.X.X`
-RUN cargo install cargo-chef 
 COPY . .
 RUN cargo chef prepare --recipe-path recipe.json
 
-FROM rust as cacher
+FROM lukemathwalker/cargo-chef as cacher
 WORKDIR /rust-docker
-RUN cargo install cargo-chef
 COPY --from=planner /rust-docker/recipe.json ./
 RUN cargo chef cook --release -p one
 
