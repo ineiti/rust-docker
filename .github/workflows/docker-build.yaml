@@ -12,6 +12,6 @@ jobs:
       uses: whoan/docker-build-with-cache-action@v5
       with:
         username: ${{ secrets.DOCKERHUB_NAME }}
-        password: ${{ secrets.DOCKERHUB }}
-        image_name: fledgre/one-test
+        password: ${{ secrets.DOCKERHUB_KEY }}
+        image_name: ineiti/one-test
         dockerfile: Dockerfile
