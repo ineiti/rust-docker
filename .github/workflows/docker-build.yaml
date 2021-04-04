@@ -8,10 +8,20 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Build One
-      uses: whoan/docker-build-with-cache-action@v5
-      with:
-        username: ${{ secrets.DOCKERHUB_NAME }}
-        password: ${{ secrets.DOCKERHUB_KEY }}
-        image_name: ineiti/one-test
-        dockerfile: Dockerfile
+    # In this step, this action saves a list of existing images,
+    # the cache is created without them in the post run.
+    # It also restores the cache if it exists.
+    - uses: satackey/action-docker-layer-caching@v0.0.11
+      # Ignore the failure of a step and avoid terminating the job.
+      continue-on-error: true
+
+    - name: Build the Docker image
+      run: make
+
+    # - name: Build One
+    #   uses: whoan/docker-build-with-cache-action@v5
+    #   with:
+    #     username: ${{ secrets.DOCKERHUB_NAME }}
+    #     password: ${{ secrets.DOCKERHUB_KEY }}
+    #     image_name: ineiti/one-test
+    #     dockerfile: Dockerfile
